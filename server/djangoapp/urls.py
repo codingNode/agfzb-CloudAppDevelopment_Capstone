@@ -4,7 +4,7 @@ from django.conf import settings
 from . import views
 
 app_name = 'djangoapp'
-urlpatterns = [
+urlpatterns = [ 
     # route is a string contains a URL pattern
     # view refers to the view function
     # name the URL
