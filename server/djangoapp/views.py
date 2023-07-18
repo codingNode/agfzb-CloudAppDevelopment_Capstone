@@ -35,7 +35,7 @@ def contact(request):
 def login_request(request):
     context={}
     
-    if request.method = "POST":
+    if request.method == "POST":
         username = request.POST['username']
         password = request.POST['psw']
         # checking authentication
@@ -62,9 +62,9 @@ def logout_request(request):
 # Create a `registration_request` view to handle sign up request
 def registration_request(request):
     context ={}
-    if request.method = "GET":
+    if request.method == "GET":
         return render(request, 'djangoapp/registration.html', context)
-    elif request.method = "POST":
+    elif request.method == "POST":
         username= request.POST['username']
         firstname= request.POST['firstname']
         lastname= request.POST['lastname']
