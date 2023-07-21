@@ -96,7 +96,7 @@ def get_dealerships(request):
     context = {}
     if request.method == "GET":
         context = {}  
-        url = ""
+        url = "https://us-south.functions.appdomain.cloud/api/v1/web/2568da4b-f19f-44e7-8091-af8d5b18ba61/dealership-package/get-dealership"
         dealerships = get_dealers_from_cf(url)
         context["dealership_list"] = dealerships
         return render(request, 'djangoapp/index.html', context)
@@ -106,6 +106,7 @@ def get_dealerships(request):
 # def get_dealer_details(request, dealer_id):
 # ...
 def get_dealer_details(request, id):
+    print("getting ID: ", id)
     if request.method == "GET":
         context = {}
         dealer_url = ""
