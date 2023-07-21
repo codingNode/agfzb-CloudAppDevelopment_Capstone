@@ -105,16 +105,16 @@ def get_dealerships(request):
 # Create a `get_dealer_details` view to render the reviews of a dealer
 # def get_dealer_details(request, dealer_id):
 # ...
-def get_dealer_details(request, id):
-    print("getting ID: ", id)
+def get_dealer_details(request, dealerId):
+    print("getting ID: ", dealerId)
     if request.method == "GET":
         context = {}
-        dealer_url = ""
-        dealer = get_dealer_by_id_from_cf(dealer_url, id=id)
+        dealer_url = "https://us-south.functions.appdomain.cloud/api/v1/web/2568da4b-f19f-44e7-8091-af8d5b18ba61/dealership-package/get-dealership"
+        dealer = get_dealer_by_id_from_cf(dealer_url, dealerId=dealerId)
         context["dealer"] = dealer
 
-        review_url = ""
-        reviews = get_dealer_reviews_from_cf(review_url, id=id)
+        review_url = "https://us-south.functions.appdomain.cloud/api/v1/web/2568da4b-f19f-44e7-8091-af8d5b18ba61/dealership-package/get-review"
+        reviews = get_dealer_reviews_from_cf(review_url, dealerId=id)
         # print(reviews)
         context["reviews"] = reviews
 
