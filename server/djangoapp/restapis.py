@@ -1,8 +1,12 @@
 import requests
 import json
 # import related models here
-from .models import CarDealer
+from .models import CarDealer, DealerReview
 from requests.auth import HTTPBasicAuth
+
+from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
+from ibm_watson import NaturalLanguageUnderstandingV1
+from ibm_watson.natural_language_understanding_v1 import Features, SentimentOptions
 
 
 # Create a `get_request` to make HTTP GET requests
@@ -11,6 +15,7 @@ from requests.auth import HTTPBasicAuth
 def get_request(url, **kwargs):
     api_key = kwargs.get("api_key")
     print("GET from {} ".format(url))
+    print("dealerID", kwargs.get('dealerId'))
     response = None  # Initialize response variable
 
     try:
@@ -34,7 +39,7 @@ def get_request(url, **kwargs):
         print("With status {} ".format(status_code))
         # print("response is:", response)
         json_data = json.loads(response.text)
-        print("data loaded: ",json_data)
+        # print("data loaded: ",json_data)
         return json_data
     else:
         return None
@@ -126,11 +131,13 @@ def get_dealer_reviews_from_cf(url, **kwargs):
     if json_result:
         # print("line 105",json_result)
         reviews = json_result["data"]["docs"]
+        print("reviews loaded: ", reviews)
         for dealer_review in reviews:
             review_obj = DealerReview(dealership=dealer_review["dealership"],
                                    name=dealer_review["name"],
                                   purchase=dealer_review["purchase"],
                                    review=dealer_review["review"])
+          
             if "id" in dealer_review:
                 review_obj.id = dealer_review["id"]
             if "purchase_date" in dealer_review:
@@ -155,8 +162,8 @@ def get_dealer_reviews_from_cf(url, **kwargs):
 # - Call get_request() with specified arguments
 # - Get the returned sentiment label such as Positive or Negative
 def analyze_review_sentiments(dealer_review):
-    API_KEY = ""
-    NLU_URL = ''
+    API_KEY = "QlmO-B7D_CI7Mby6yLmpCL4lOMr8YjwnTwDw8KMlCXvg"
+    NLU_URL = 'https://api.jp-tok.natural-language-understanding.watson.cloud.ibm.com/instances/579466fc-6b56-4bc4-b251-4733c7016782'
     authenticator = IAMAuthenticator(API_KEY)
     natural_language_understanding = NaturalLanguageUnderstandingV1(
         version='2021-08-01', authenticator=authenticator)
