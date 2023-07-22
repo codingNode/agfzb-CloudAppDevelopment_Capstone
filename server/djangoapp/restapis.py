@@ -32,7 +32,9 @@ def get_request(url, **kwargs):
     if response is not None:
         status_code = response.status_code
         print("With status {} ".format(status_code))
+        # print("response is:", response)
         json_data = json.loads(response.text)
+        print("data loaded: ",json_data)
         return json_data
     else:
         return None
@@ -90,7 +92,7 @@ def get_dealers_from_cf(url, **kwargs):
 def get_dealer_by_id_from_cf(url, dealerId):
     # print("url:", url,"dealerID", dealerId)
     json_result = get_request(url, dealerId=dealerId)
-    print('json_result from line 54', json_result)
+    # print('json_result from line 54', json_result)
 
     if json_result:
         dealers = json_result
@@ -116,7 +118,7 @@ def get_dealer_by_id_from_cf(url, dealerId):
 def get_dealer_reviews_from_cf(url, **kwargs):
     results = []
     dealerId = kwargs.get("dealerId")
-    if id:
+    if dealerId:
         json_result = get_request(url, dealerId=dealerId)
     else:
         json_result = get_request(url)
@@ -127,7 +129,7 @@ def get_dealer_reviews_from_cf(url, **kwargs):
         for dealer_review in reviews:
             review_obj = DealerReview(dealership=dealer_review["dealership"],
                                    name=dealer_review["name"],
-                                   purchase=dealer_review["purchase"],
+                                  purchase=dealer_review["purchase"],
                                    review=dealer_review["review"])
             if "id" in dealer_review:
                 review_obj.id = dealer_review["id"]

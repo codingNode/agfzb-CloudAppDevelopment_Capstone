@@ -9,7 +9,7 @@ from .restapis import get_dealers_from_cf, get_dealer_by_id_from_cf, get_dealer_
 
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-from datetime import datetime
+from datetime import datetime 
 import logging
 import json 
 
@@ -114,7 +114,7 @@ def get_dealer_details(request, dealerId):
         context["dealer"] = dealer
 
         review_url = "https://us-south.functions.appdomain.cloud/api/v1/web/2568da4b-f19f-44e7-8091-af8d5b18ba61/dealership-package/get-review"
-        reviews = get_dealer_reviews_from_cf(review_url, dealerId=id)
+        reviews = get_dealer_reviews_from_cf(review_url, dealerId=dealerId)
         # print(reviews)
         context["reviews"] = reviews
 
