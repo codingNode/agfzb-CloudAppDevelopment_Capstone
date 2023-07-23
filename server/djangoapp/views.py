@@ -11,7 +11,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from datetime import datetime 
 import logging
-import json 
+import json
 
 
 # Get an instance of a logger
@@ -159,6 +159,8 @@ def add_review(request, dealerId):
 
             new_payload = {}
             new_payload["review"] = payload
+            print("before calling postrequest()", payload)
+            
             review_post_url = "https://us-south.functions.appdomain.cloud/api/v1/web/2568da4b-f19f-44e7-8091-af8d5b18ba61/dealership-package/post-review"
             post_request(review_post_url, new_payload, dealerId=dealerId)
         return redirect("djangoapp:dealer_details", dealerId=dealerId)

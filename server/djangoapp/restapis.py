@@ -50,10 +50,15 @@ def post_request(url, payload, **kwargs):
     print(kwargs)
     print("POST to {} ".format(url))
     print(payload)
-    response = requests.post(url, params=kwargs, json=payload)
+    print("to post: ", payload)
+    header= {
+        'Content-Type': 'application/json'
+    }
+    response = requests.post(url, params=kwargs, headers=header, json=payload)
     status_code = response.status_code
     print("With post status {} ".format(status_code))
     json_data = json.loads(response.text)
+    print("response from post: ", json_data)
     return json_data
 
 # Create a get_dealers_from_cf method to get dealers from a cloud function
