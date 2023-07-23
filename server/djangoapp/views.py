@@ -11,7 +11,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from datetime import datetime 
 import logging
-import json  
+import json 
 
 
 # Get an instance of a logger
@@ -131,7 +131,7 @@ def add_review(request, dealerId):
     if request.method == 'GET':
         # Get cars for the dealer
         cars = CarModel.objects.all()
-        print("carssssssssss",cars)
+        # print("carssssssssss",cars)
         context["cars"] = cars
 
         return render(request, 'djangoapp/add_review.html', context)
@@ -145,8 +145,8 @@ def add_review(request, dealerId):
             car = CarModel.objects.get(pk=car_id)
             payload["time"] = datetime.utcnow().isoformat()
             payload["name"] = username
-            payload["dealership"] = id
-            payload["id"] = id
+            payload["dealership"] = dealerId
+            payload["id"] = dealerId
             payload["review"] = request.POST["content"]
             payload["purchase"] = False
             if "purchasecheck" in request.POST:
