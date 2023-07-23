@@ -136,6 +136,7 @@ def add_review(request, dealerId):
 
         return render(request, 'djangoapp/add_review.html', context)
     elif request.method == 'POST':
+        print("POST method called for the review")
         if request.user.is_authenticated:
             username = request.user.username
             print(request.POST)
